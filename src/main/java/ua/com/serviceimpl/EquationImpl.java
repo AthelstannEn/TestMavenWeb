@@ -3,7 +3,7 @@ package ua.com.serviceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ua.com.bean.CoefficientBean;
+import ua.com.controlleri.user.CoefValid;
 import ua.com.entity.*;
 import ua.com.manager.*;
 import ua.com.service.IEquationManager;
@@ -15,8 +15,8 @@ public class EquationImpl implements IEquationService{
 	@Autowired
 	private IEquationManager equationManager;
 	
-	public void create(CoefficientBean coefficientBean) {
-		equationManager.create(coefficientBean);
+	public void create(CoefValid coefValid) {
+		equationManager.create(coefValid);
 	}
 
 	public Equst read(Long id) {

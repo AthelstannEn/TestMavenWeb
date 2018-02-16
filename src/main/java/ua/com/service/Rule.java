@@ -1,10 +1,10 @@
 package ua.com.service;
 
-import ua.com.bean.CoefficientBean;
+import ua.com.controlleri.user.CoefValid;
 
 public interface Rule {
 
 	
-	CoefficientBean getResult(CoefficientBean coefficientBean);
+	CoefValid getResult(CoefValid coefValid);
 	
 }

@@ -2,53 +2,53 @@ package ua.com.serviceimpl;
 
 
 
-import ua.com.bean.CoefficientBean;
-import ua.com.exception.NegativeException;
+import ua.com.controlleri.user.CoefValid;
+import ua.com.exception.Nrgrxcrption;
 import ua.com.service.Rule;
 public class GeneralRule implements Rule {
 	
 	
 	private double leadingCoefficient, secondCoefficient, freeMember;
 
-	public CoefficientBean getResult(CoefficientBean coefficientBean) {
-		parseStringToDouble(coefficientBean);
-		coefficientBean.setDiscriminant(findDiscriminant());
-		findResult(coefficientBean);
-		return coefficientBean;
+	public CoefValid getResult(CoefValid coefValid) {
+		parseStringToDouble(coefValid);
+		coefValid.setDiscriminant(findDiscriminant());
+		findResult(coefValid);
+		return coefValid;
 	}
 
-	private void parseStringToDouble(CoefficientBean coefficientBean) {
-		leadingCoefficient = Double.parseDouble(coefficientBean.getLeadingCoefficien());
-		secondCoefficient = Double.parseDouble(coefficientBean.getSecondCoefficien());
-		freeMember = Double.parseDouble(coefficientBean.getFreeMember());
+	private void parseStringToDouble(CoefValid coefValid) {
+		leadingCoefficient = Double.parseDouble(coefValid.getLeadingCoefficien());
+		secondCoefficient = Double.parseDouble(coefValid.getSecondCoefficien());
+		freeMember = Double.parseDouble(coefValid.getFreeMember());
 	}
 
 	private Double findDiscriminant() {
 		return secondCoefficient * secondCoefficient - 4 * leadingCoefficient * freeMember;
 	}
 
-	private void findResult(CoefficientBean coefficientBean) {
-		if (coefficientBean.getDiscriminant() > 0)
-			isPositive(coefficientBean);
-		else if (coefficientBean.getDiscriminant() == 0)
-			isZero(coefficientBean);
+	private void findResult(CoefValid coefValid) {
+		if (coefValid.getDiscriminant() > 0)
+			isPositive(coefValid);
+		else if (coefValid.getDiscriminant() == 0)
+			isZero(coefValid);
 		//else
 	//		throw new NegativeException();
 	}
 
-	private void isPositive(CoefficientBean coefficientBean) {
-		double firstVariable = (-secondCoefficient + Math.sqrt(coefficientBean.getDiscriminant())) / 2
+	private void isPositive(CoefValid coefValid) {
+		double firstVariable = (-secondCoefficient + Math.sqrt(coefValid.getDiscriminant())) / 2
 				* leadingCoefficient;
-		double secondVariable = (-secondCoefficient - Math.sqrt(coefficientBean.getDiscriminant())) / 2
+		double secondVariable = (-secondCoefficient - Math.sqrt(coefValid.getDiscriminant())) / 2
 				* leadingCoefficient;
-		coefficientBean.setFirstVariable(firstVariable);
-		coefficientBean.setSecondVariable(secondVariable);
+		coefValid.setFirstVariable(firstVariable);
+		coefValid.setSecondVariable(secondVariable);
 	}
 
-	private void isZero(CoefficientBean coefficientBean) {
+	private void isZero(CoefValid coefValid) {
 		double variable = -secondCoefficient / 2 * leadingCoefficient;
-		coefficientBean.setFirstVariable(variable);
-		coefficientBean.setSecondVariable(variable);
+		coefValid.setFirstVariable(variable);
+		coefValid.setSecondVariable(variable);
 	}
 
 }

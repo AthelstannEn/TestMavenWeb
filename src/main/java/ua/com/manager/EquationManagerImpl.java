@@ -10,11 +10,12 @@ import java.util.Date;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ua.com.bean.CoefficientBean;
+import ua.com.controlleri.user.CoefValid;
 import ua.com.dao.IEquationDao;
 import ua.com.entity.Equst;
 import ua.com.service.IEquationManager;
@@ -30,8 +31,8 @@ public class EquationManagerImpl implements IEquationManager {
 	@Autowired
 	private IEquationDao euqationDao;
 	@Override
-	public void create(CoefficientBean coefficientBean) {
-		 Equst equations = parseCoefficientBeanToEquation(findResult(coefficientBean));
+	public void create(CoefValid coefValid) {
+		 Equst equations = parseCoefficientBeanToEquation(findResult(coefValid));
 		 euqationDao.create(equations);
 	}
 
@@ -39,17 +40,17 @@ public class EquationManagerImpl implements IEquationManager {
 	public Equst read(Long id) {
 		return euqationDao.read(id);
 	}
-	private CoefficientBean findResult(CoefficientBean coefficientBean){
+	private CoefValid findResult(CoefValid coefValid){
 		Rule rule = new GeneralRule();
-		return rule.getResult(coefficientBean);
+		return rule.getResult(coefValid);
 	}
-	private Equst parseCoefficientBeanToEquation(CoefficientBean coefficientBean){
+	private Equst parseCoefficientBeanToEquation(CoefValid coefValid){
 		Equst equations = new Equst();
-		equations.setLeadinCoefficient(Double.parseDouble(coefficientBean.getLeadingCoefficien()));
-		equations.setSecondCoefficient(Double.parseDouble(coefficientBean.getSecondCoefficien()));
-		equations.setFreeMember(Double.parseDouble(coefficientBean.getFreeMember()));
-		equations.setFirstVariable(coefficientBean.getFirstVariable());
-		equations.setSecondVariable(coefficientBean.getSecondVariable());
+		equations.setLeadinCoefficient(Double.parseDouble(coefValid.getLeadingCoefficien()));
+		equations.setSecondCoefficient(Double.parseDouble(coefValid.getSecondCoefficien()));
+		equations.setFreeMember(Double.parseDouble(coefValid.getFreeMember()));
+		equations.setFirstVariable(coefValid.getFirstVariable());
+		equations.setSecondVariable(coefValid.getSecondVariable());
 		equations.setCreatedDate(new Date());
 		return equations;
 	}
